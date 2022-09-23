@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gnc.dao.LessonsDao">
+   <!-- 수업등록 -->
+   <insert id="registerDao">
+      insert into lessons2(title,start_at,end_at,time,lecturer,type,description)
+      values
+      (#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7})
+    </insert>
+    <update id="updateDao">
+    update lessons2 set title = #{title}, start_at = #{start_at}, end_at = #{end_at}, time = #{time} , lecturer = #{lecturer} ,type= #{type},description=#{description} where id = #{id}
+    </update>
+    
+    
+
+<select id="lessonsListDao" resultType="com.gnc.dto.LessonsDto" parameterType="string"> 
+		select id,start_at, title, lecturer , type from lessons2 order by id desc LIMIT ${pageStart}, ${perPageNum}
+	</select>
+	
+<select id="test" resultType="com.gnc.dto.LessonsDto" parameterType="string" >
+		 select id,start_at, title, lecturer , type from lessons2 order by id desc
+	</select>
+	
+<select id="getCount" resultType="int">
+    SELECT count(*) FROM lessons2
+</select>
+	
+	<select id="lessonsDao" resultType="com.gnc.dto.LessonsDto">
+		select id,title,start_at,end_at,time,lecturer,type,description,center, attendances from lessons2 where id = #{id}
+	</select>
+	
+		<select id="getIdDao" resultType="int">
+		select id from lessons2
+	</select>
+	
+	<select id="searchDao" resultType="com.gnc.dto.LessonsDto">
+		select id, start_at, title, lecturer , type from lessons2 where title LIKE CONCAT('%',#{keyword},'%')
+	</select>
+	
+	<delete id="deleteDao" >
+		 delete from lessons2 where id = #{id}
+	</delete>
+	
+
+
+  <!-- 로그인 
+   <select id="loginDao" resultType="String">
+      select userId,userPassword from user where userId = #{_userId} and userPassword =
+      #{_userPassword}
+</select>  -->
+
+</mapper>
